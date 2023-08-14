@@ -1,5 +1,6 @@
-package com.cliffordbechtel.msscbeerservice.domain;
+package com.cliffordbechtel.msscbeerservice.beer_service.domain;
 
+import com.cliffordbechtel.msscbeerservice.web.model.BeerStyleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,15 +35,21 @@ public class Beer {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     private String beerName;
-    private String beerStyle;
+
+    @Enumerated(EnumType.STRING)
+    private BeerStyleEnum beerStyle;
 
     @Column(unique = true)
-    private Long upc;
+    private String upc;
 
     private BigDecimal price;
 
     private Integer minOnHand;
     private Integer quantityToBrew;
-
+    private Integer quantityOnHand;
 }
